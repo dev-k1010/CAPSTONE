@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model emotion_type {
+  emotion_id   Int          @id @default(autoincrement())
+  emotion_name String?      @db.VarChar(100)
+  image_like   image_like[]
+}
+
+model image_comment {
+  comment_id      Int       @id @default(autoincrement())
+  comment_date    DateTime? @db.Date
+  comment_content String?   @db.Text
+  user_id         Int?
+  img_id          Int?
+  users           users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "image_comment_ibfk_1")
+  images          images?   @relation(fields: [img_id], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "image_comment_ibfk_2")
+
+  @@index([img_id], map: "img_id")
+  @@index([user_id], map: "user_id")
+}
+
+model image_like {
+  user_id      Int
+  img_id       Int
+  like_date    DateTime?     @db.Date
+  emotion_id   Int?
+  users        users         @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "image_like_ibfk_1")
+  images       images        @relation(fields: [img_id], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "image_like_ibfk_2")
+  emotion_type emotion_type? @relation(fields: [emotion_id], references: [emotion_id], onDelete: NoAction, onUpdate: NoAction, map: "image_like_ibfk_3")
+
+  @@id([user_id, img_id])
+  @@index([emotion_id], map: "emotion_id")
+  @@index([img_id], map: "img_id")
+}
+
+model image_save {
+  user_id                                  Int
+  img_id                                   Int          @unique
+  date_save                                DateTime?    @db.Date
+  users                                    users        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "image_save_ibfk_1")
+  images                                   images       @relation(fields: [img_id], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "image_save_ibfk_2")
+  list_image_list_image_img_idToimage_save list_image[] @relation("list_image_img_idToimage_save")
+
+  @@id([user_id, img_id])
+  @@index([img_id], map: "img_id")
+}
+
+model images {
+  img_id         Int             @id @default(autoincrement())
+  img_name       String?         @db.VarChar(100)
+  img_href       String?         @unique @db.VarChar(100)
+  img_decription String?         @db.Text
+  user_id        Int?
+  img_date       DateTime?       @db.Date
+  image_comment  image_comment[]
+  image_like     image_like[]
+  image_save     image_save[]
+  users          users?          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "images_ibfk_1")
+
+  @@index([user_id], map: "user_id")
+}
+
+model list_image {
+  img_id                                   Int 
+  category_id                              Int
+  image_save_list_image_img_idToimage_save image_save    @relation("list_image_img_idToimage_save", fields: [img_id], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "list_image_ibfk_2")
+  type_category                            type_category @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "list_image_ibfk_3")
+
+  @@id([img_id, category_id])
+  @@index([category_id], map: "category_id")
+}
+
+model type_category {
+  category_id   Int          @id @default(autoincrement())
+  category_name String?      @db.VarChar(100)
+  date_create   DateTime?    @db.Date
+  list_image    list_image[]
+}
+
+model user_follow {
+  user_id_follower  Int
+  user_id_following Int
+  date_follow       DateTime? @db.Date
+
+  follower users @relation("user_follow_user_id_followerTousers", fields: [user_id_follower], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_follow_ibfk_1")
+
+  following users @relation("user_follow_user_id_followingTousers", fields: [user_id_following], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_follow_ibfk_2")
+
+  @@id([user_id_follower, user_id_following])
+  @@index([user_id_following], map: "user_id_following")
+}
+
+model users {
+  user_id                                          Int             @id @default(autoincrement())
+  user_email                                       String?         @db.VarChar(100)
+  user_password                                    String?         @db.VarChar(100)
+  user_name                                        String?         @db.VarChar(100)
+  user_age                                         Int?
+  user_avatar                                      String?         @db.VarChar(255)
+  refresh_token                                    String?         @db.Text
+  image_comment                                    image_comment[]
+  image_like                                       image_like[]
+  image_save                                       image_save[]
+  images                                           images[]
+  user_follow_user_follow_user_id_followerTousers  user_follow[]   @relation("user_follow_user_id_followerTousers")
+  user_follow_user_follow_user_id_followingTousers user_follow[]   @relation("user_follow_user_id_followingTousers")
+}
