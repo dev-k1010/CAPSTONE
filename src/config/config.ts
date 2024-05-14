@@ -15,7 +15,7 @@ export class config {
 
     // Check Email
     checkMail(email: string) {
-        let data = this.prisma.users.findFirstOrThrow(
+        let data = this.prisma.users.findFirst(
             {
                 where: { user_email: email }
             }
@@ -34,16 +34,5 @@ export class config {
     async checkToken(token: any) {
         await jwt.verify(token, "BI_MAT", error => error)
     }
-
-    // Create Token Refresh
-    async createTokenRef(data: any) {
-
-        let tokenRef = await this.jwtService.sign({ data }, { secret: "BI_MAT", expiresIn: "30d" })
-
-        return tokenRef
-    }
-
-
-
 
 }

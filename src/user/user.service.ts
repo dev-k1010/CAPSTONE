@@ -20,7 +20,7 @@ export class UserService {
         user_id
       }
     })
-    // console.log("🙂 ~ UserService ~ infoUser ~ data:", data)
+
     return data
   }
 
@@ -162,6 +162,25 @@ export class UserService {
     await this.prisma.image_like.create({ data })
     throw new HttpException("Like", 200)
 
+  }
+
+  // List like 
+  async listLikeImage(img_id: number) {
+
+    let checkImage = await this.prisma.image_like.findMany(
+      {
+        where: {
+          img_id
+        },
+        include: {
+          users: true,
+          emotion_type: true
+        }
+      }
+
+    )
+
+    return checkImage
   }
 
   // Comment

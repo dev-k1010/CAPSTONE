@@ -94,6 +94,21 @@ export class UserController {
     }
   }
 
+  // List like image
+  @Get("/list-like/:image_id")
+  listLikeImage(@Param("image_id") image_id:number){
+    try {
+
+      return this.userService.listLikeImage(Number(image_id));
+
+
+    } catch (exception) {
+
+      throw new HttpException(exception.response, exception.status)
+
+    }
+  }
+
   // Comment 
   @Post('/comment')
   comment(@Body() body: dataComment) {
