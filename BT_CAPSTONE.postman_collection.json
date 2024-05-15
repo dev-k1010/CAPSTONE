@@ -10,9 +10,16 @@
 			"name": "GET info user",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfZW1haWwiOiJ1c2VyMTM0QGV4YW1wbGUuY29tIiwidXNlcl9uYW1lIjoiYWJjcXFxIiwidXNlcl9hZ2UiOjE4LCJrZXkiOjE3MTU3MDQwNTcyNjh9LCJpYXQiOjE3MTU3MDQwNTcsImV4cCI6MTcxNTc5MDQ1N30.W2LgrK1RZt8UsSRT6SOY3-T8yLK9gMP3FdeDdXepsOg",
+						"type": "text",
+						"uuid": "9dae6768-5689-480c-9107-230e034f5dce"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/user/list-user",
+					"raw": "http://localhost:8080/user/9",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,7 +27,7 @@
 					"port": "8080",
 					"path": [
 						"user",
-						"list-user"
+						"9"
 					]
 				}
 			},
@@ -33,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_email\":\"user1234@example.com\",\r\n    \"user_password\":\"abc1234\",\r\n    \"user_name\":\"abcd\",\r\n    \"user_age\": 18\r\n}",
+					"raw": "{\r\n    \"user_email\":\"user1111@example.com\",\r\n    \"user_password\":\"abc12345\",\r\n    \"user_name\":\"abcqqqaq\",\r\n    \"user_age\": 18\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -62,7 +69,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_email\":\"user123@example.com\",\r\n    \"user_password\":\"abc1234\"\r\n\r\n}",
+					"raw": "{\r\n    \"user_email\":\"user1111@example.com\",\r\n    \"user_password\":\"abc12345\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -211,7 +218,7 @@
 			"response": []
 		},
 		{
-			"name": "GET list follow",
+			"name": "GET search image",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -228,15 +235,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/user/list_images",
+					"raw": "http://localhost:8080/images/list-images",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
-						"list_images"
+						"images",
+						"list-images"
 					]
 				}
 			},
@@ -246,7 +253,14 @@
 			"name": "POST upload",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfZW1haWwiOiJ1c2VyMTExMUBleGFtcGxlLmNvbSIsInVzZXJfbmFtZSI6ImFiY3FxcWFxIiwidXNlcl9hZ2UiOjE4LCJrZXkiOjE3MTU3NDY3NzIwNTB9LCJpYXQiOjE3MTU3NDY3NzIsImV4cCI6MTcxNTgzMzE3Mn0.YPBDNjP-ydTVmdxvn7B8zTT4o3nAk64SfdtwK5P7aRY",
+						"type": "text",
+						"uuid": "65658597-06a0-4d6c-8f2a-ac45d99629b7"
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
@@ -273,14 +287,14 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/user/upload",
+					"raw": "http://localhost:8080/images/upload",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
+						"images",
 						"upload"
 					]
 				}
@@ -320,7 +334,20 @@
 			"name": "GET list comment image",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/images/list-comment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"list-comment",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -330,14 +357,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/user/list-images/1",
+					"raw": "http://localhost:8080/images/list-images/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
+						"images",
 						"list-images",
 						"1"
 					]
@@ -360,14 +387,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/user/delete",
+					"raw": "http://localhost:8080/images/delete",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
+						"images",
 						"delete"
 					]
 				}
@@ -378,10 +405,17 @@
 			"name": "UPDATE update user",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJfZW1haWwiOiJ1c2VyMTM0QGV4YW1wbGUuY29tIiwidXNlcl9uYW1lIjoiYWJjcXFxIiwidXNlcl9hZ2UiOjE4LCJrZXkiOjE3MTU3MDQwNTcyNjh9LCJpYXQiOjE3MTU3MDQwNTcsImV4cCI6MTcxNTc5MDQ1N30.W2LgrK1RZt8UsSRT6SOY3-T8yLK9gMP3FdeDdXepsOg",
+						"type": "text",
+						"uuid": "82b4d18f-37a8-4061-803e-92e658abc47b"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\":1,\r\n      \"user_email\":\"user1@example.com\",\r\n      \"user_password\":\"abc111\",\r\n      \"user_name\":\"khang\",\r\n      \"user_age\":19,\r\n      \"user_avatar\":\"abc.jpg\"\r\n\r\n}\r\n",
+					"raw": "{\r\n    \"user_id\":9,\r\n      \"user_email\":\"user1345@example.com\",\r\n      \"user_password\":\"1ads1\",\r\n      \"user_name\":\"khang\",\r\n      \"user_age\":19,\r\n      \"user_avatar\":\"abc.jpg\"\r\n\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -427,8 +461,29 @@
 		{
 			"name": "GET save imgae",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":1,\r\n    \"img_id\":1,\r\n    \"category_id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/images/save-image",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"save-image"
+					]
+				}
 			},
 			"response": []
 		},
@@ -436,7 +491,20 @@
 			"name": "GET list like of image",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/list-like/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"list-like",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
